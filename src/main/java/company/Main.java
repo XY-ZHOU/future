@@ -37,4 +37,9 @@ public class Main {
             return bankService.getCreditMoney(bankMessageList, user);
         });
     }
+    public static double getMoneyByUser(List<User> userList, List<CreditInformation> bankMessageList, String userId) {
+        CompletableFuture<Double> result = getUsersMessage(userList, userId)
+                .thenCompose(user -> getMoneyOfCredit(bankMessageList, user));
+        return result.join().doubleValue();
+    }
 }
