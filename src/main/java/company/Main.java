@@ -42,4 +42,7 @@ public class Main {
                 .thenCompose(user -> getMoneyOfCredit(bankMessageList, user));
         return result.join().doubleValue();
     }
+    public static double calculateMoney(double moneyOne, double moneyTwo) {
+        return moneyOne + moneyTwo;
+    }
 }
