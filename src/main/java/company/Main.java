@@ -2,6 +2,7 @@ package main.java.company;
 
 import main.java.company.model.CreditInformation;
 import main.java.company.model.User;
+import main.java.company.service.BankService;
 import main.java.company.service.UserService;
 
 import java.util.ArrayList;
@@ -28,6 +29,12 @@ public class Main {
         return CompletableFuture.supplyAsync(() -> {
             UserService userService = new UserService();
             return userService.getUserMessage(userList, userId);
+        });
+    }
+    public static CompletableFuture<Double> getMoneyOfCredit(List<CreditInformation> bankMessageList, User user) {
+        return CompletableFuture.supplyAsync(() -> {
+            BankService bankService = new BankService();
+            return bankService.getCreditMoney(bankMessageList, user);
         });
     }
 }
