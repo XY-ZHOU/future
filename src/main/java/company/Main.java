@@ -23,25 +23,32 @@ public class Main {
         bankMessageList.add(new CreditInformation(userOne, "123", "农行", 100.00));
         bankMessageList.add(new CreditInformation(userTwo, "234", "建行", 500.00));
 
+        double moneyOne = getMoneyByUser(userList, bankMessageList, "1");
+        double moneyTwo = getMoneyByUser(userList, bankMessageList, "2");
+        System.out.println("李四和张三共有" + calculateMoney(moneyOne, moneyTwo) + "钱");
 
     }
+
     public static CompletableFuture<User> getUsersMessage(List<User> userList, String userId) {
         return CompletableFuture.supplyAsync(() -> {
             UserService userService = new UserService();
             return userService.getUserMessage(userList, userId);
         });
     }
+
     public static CompletableFuture<Double> getMoneyOfCredit(List<CreditInformation> bankMessageList, User user) {
         return CompletableFuture.supplyAsync(() -> {
             BankService bankService = new BankService();
             return bankService.getCreditMoney(bankMessageList, user);
         });
     }
+
     public static double getMoneyByUser(List<User> userList, List<CreditInformation> bankMessageList, String userId) {
         CompletableFuture<Double> result = getUsersMessage(userList, userId)
                 .thenCompose(user -> getMoneyOfCredit(bankMessageList, user));
         return result.join().doubleValue();
     }
+
     public static double calculateMoney(double moneyOne, double moneyTwo) {
         return moneyOne + moneyTwo;
     }
