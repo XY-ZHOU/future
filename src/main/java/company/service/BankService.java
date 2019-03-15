@@ -9,4 +9,7 @@ public class BankService {
     public double getCreditMoney(List<CreditInformation> bankMessageList, User user) {
         return bankMessageList.stream().filter(n -> n.getUser().equals(user)).findAny().orElse(null).getMoney();
     }
+    public String getCreditType(List<CreditInformation> bankMessageList, User user) {
+        return bankMessageList.stream().filter(n -> n.getUser().equals(user)).findAny().orElse(null).getBankName();
+    }
 }
