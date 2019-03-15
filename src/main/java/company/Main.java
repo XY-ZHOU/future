@@ -2,9 +2,11 @@ package main.java.company;
 
 import main.java.company.model.CreditInformation;
 import main.java.company.model.User;
+import main.java.company.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -21,5 +23,11 @@ public class Main {
         bankMessageList.add(new CreditInformation(userTwo, "234", "建行", 500.00));
 
 
+    }
+    public static CompletableFuture<User> getUsersMessage(List<User> userList, String userId) {
+        return CompletableFuture.supplyAsync(() -> {
+            UserService userService = new UserService();
+            return userService.getUserMessage(userList, userId);
+        });
     }
 }
